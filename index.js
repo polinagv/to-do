@@ -1,3 +1,4 @@
+// const myStorage = window.localStorage;
 const state = {
   monday: [],
   tuesday: [],
@@ -8,11 +9,14 @@ const state = {
   sunday: [],
 };
 
-const inputMonday = document.querySelector(".monday-input");
+// ПОКА ЧТО ТОЛЬКО ДЛЯ ПОНЕДЕЛЬНИКА:
 const timetableMonday = document.querySelector(".timetable-monday");
+const inputMonday = document.querySelector(".monday-input");
 const buttonSubmitMonday = document.querySelector(".button-submit");
+// КОНЕЦ
 
-const handleClick = (e) => {
+// ДЛЯ КНОПОК CHECKBOX:
+const handleClickCheckbox = (e) => {
   const checkbox = e.target;
 
   if (checkbox.textContent === "❏") {
@@ -22,6 +26,26 @@ const handleClick = (e) => {
   }
 };
 
+const checkboxes = document.querySelectorAll(".checkbox");
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener("click", handleClickCheckbox);
+});
+// КОНЕЦ
+
+// ДЛЯ КНОПОК DELETE:
+const handleClickDelete = (e) => {
+  const deleteButton = e.target;
+  const li = deleteButton.closest("li");
+  li.remove();
+};
+
+const deleteButtons = document.querySelectorAll(".delete");
+deleteButtons.forEach((deleteButton) => {
+  deleteButton.addEventListener("click", handleClickDelete);
+});
+// КОНЕЦ
+
+// ДЛЯ КНОПОК SUBMIT (ОСНОВНОЙ ДВИЖ):
 buttonSubmitMonday.addEventListener("click", (e) => {
   const timetableItem = e.target.closest(".timetable-item");
   const ul = timetableItem.querySelector("ul");
@@ -29,21 +53,32 @@ buttonSubmitMonday.addEventListener("click", (e) => {
   if (inputMonday.value.length > 0) {
     ul.insertAdjacentHTML(
       "beforeend",
-      `<li><button class="checkbox">❏</button> ${inputMonday.value}</li>`
+      `<li>
+      <button class="checkbox">❏</button>
+      ${inputMonday.value}
+      <button class="edit">✎</button>
+      <button class="delete"><img class="img-delete" src="/images/delete.png" alt=""></button>
+      </li>`
     );
+
+    state.monday.push(inputMonday.value);
+    // myStorage.setItem(`monday`, state.monday);
 
     const checkboxes = document.querySelectorAll(".checkbox");
     const targetCheckbox = checkboxes[checkboxes.length - 1];
-    targetCheckbox.addEventListener("click", handleClick);
+    targetCheckbox.addEventListener("click", handleClickCheckbox);
+
+    const deleteButtons = document.querySelectorAll(".delete");
+    const targetDeleteButton = deleteButtons[deleteButtons.length - 1];
+    targetDeleteButton.addEventListener("click", handleClickDelete);
+
+    // state.monday.pop(); - в какое условие необходимо засунуть эту строчку?
+    // как узнать, что клик по кнопке удаления состоялся? или нужно что-то другое для условия?
 
     inputMonday.value = "";
   }
 });
-
-const checkboxes = document.querySelectorAll(".checkbox");
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener("click", handleClick);
-});
+// КОНЕЦ
 
 // inputMonday.addEventListener('keyup', (event) => {
 //   if(event.key === 'Enter') {

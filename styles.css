@@ -116,6 +116,57 @@ ul li {
   /* display: block; */
 }
 
+.utility-buttons {
+  /* display: flex; */
+  /* text-align: right; */
+}
+
+.delete {
+  border: none;
+
+  font-size: 15px;
+  color: rgb(38, 38, 38);
+
+  background-color: rgba(230, 227, 227, 0.806);
+
+  margin-top: 5px;
+  padding: 0px;
+
+  cursor: pointer;
+
+  opacity: 0;
+}
+
+.delete:hover {
+  opacity: 100;
+}
+
+.img-delete {
+  max-width: 250px;
+  max-height: 18px;
+}
+
+.edit {
+  border: none;
+
+  font-size: 20px;
+  color: rgb(38, 38, 38);
+
+  background-color: rgba(230, 227, 227, 0.806);
+
+  padding-bottom: 1px;
+  padding-left: 0px;
+  padding-right: 0px;
+
+  cursor: pointer;
+
+  opacity: 0;
+}
+
+.edit:hover {
+  opacity: 100;
+}
+
 /* ul li::marker {
   content: '☑ ';
   font-size: 1.5em;
